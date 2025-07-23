@@ -9,14 +9,6 @@ variable "resource_groups" {
   }))
 
   default = {}
-
-  validation {
-    condition = alltrue([
-      for rg in var.resource_groups :
-      length(trim(rg.name)) > 0 && length(trim(rg.location)) > 0
-    ])
-    error_message = "Each resource group must have a non-empty name and location."
-  }
 }
 
 variable "globals" {
@@ -30,14 +22,6 @@ variable "globals" {
   }))
 
   default = {}
-
-  validation {
-    condition = alltrue([
-      for g in var.globals :
-      length(trim(g.name)) > 0
-    ])
-    error_message = "Each global config must include a non-empty name."
-  }
 }
 
 variable "user_managed_identity" {
@@ -51,14 +35,6 @@ variable "user_managed_identity" {
   }))
 
   default = {}
-
-  validation {
-    condition = alltrue([
-      for u in var.user_managed_identity :
-      length(trim(u.name)) > 0 && length(trim(u.resource_group_key)) > 0
-    ])
-    error_message = "Each identity must have a non-empty name and resource_group_key."
-  }
 }
 
 variable "nsg" {
@@ -84,15 +60,6 @@ variable "nsg" {
   }))
 
   default = {}
-
-  validation {
-    condition = alltrue([
-      for n in var.nsg :
-      length(trim(n.name)) > 0 &&
-      length(trim(n.resource_group_key)) > 0
-    ])
-    error_message = "Each NSG must have a non-empty name and resource_group_key."
-  }
 }
 
 variable "snet" {
@@ -108,17 +75,6 @@ variable "snet" {
   }))
 
   default = {}
-
-  validation {
-    condition = alltrue([
-      for s in var.snet :
-      length(trim(s.name)) > 0 &&
-      length(trim(s.vnet_key)) > 0 &&
-      length(trim(s.location)) > 0 &&
-      length(s.address_prefixes) > 0
-    ])
-    error_message = "Each subnet must have name, location, vnet_key, and at least one address prefix."
-  }
 }
 
 variable "vnet" {
@@ -165,18 +121,6 @@ variable "vnet" {
   }))
 
   default = {}
-
-  validation {
-    condition = alltrue([
-      for v in var.vnet :
-      v.read == true || (
-        try(length(v.location), 0) > 0 &&
-        try(length(v.resource_group_key), 0) > 0 &&
-        try(length(v.address_space), 0) > 0
-      )
-    ])
-    error_message = "Writable VNets must include location, resource_group_key, and address_space."
-  }
 }
 
 variable "keyvaults" {
@@ -219,16 +163,6 @@ variable "keyvaults" {
   }))
 
   default = {}
-
-  validation {
-    condition = alltrue([
-      for k in var.keyvaults :
-      length(trim(k.name)) > 0 &&
-      length(trim(k.location)) > 0 &&
-      length(trim(k.resource_group_key)) > 0
-    ])
-    error_message = "Each key vault must have name, location, and resource_group_key."
-  }
 }
 
 variable "role_assignments_entra_id" {
@@ -308,16 +242,6 @@ variable "storage_accounts" {
   }))
 
   default = {}
-
-  validation {
-    condition = alltrue([
-      for s in var.storage_accounts :
-      length(trim(s.name)) > 0 &&
-      length(trim(s.location)) > 0 &&
-      length(trim(s.resource_group_key)) > 0
-    ])
-    error_message = "Each storage account must have name, location, and resource_group_key."
-  }
 }
 
 variable "aks" {
@@ -384,13 +308,4 @@ variable "aks" {
   }))
 
   default = {}
-
-  validation {
-    condition = alltrue([
-      for c in var.aks :
-      length(trim(c.name)) > 0 &&
-      length(trim(c.resource_group_key)) > 0
-    ])
-    error_message = "Each AKS cluster must have a non-empty name and resource_group_key."
-  }
 }
