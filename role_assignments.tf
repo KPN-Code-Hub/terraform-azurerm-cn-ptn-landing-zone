@@ -4,6 +4,6 @@ module "role_assignments" {
 
   enable_telemetry = false
 
-  role_assignments_azure_resource_manager = local.role_assignments.resource_manager
-  role_assignments_entra_id               = local.role_assignments.entra_id
+  role_assignments_azure_resource_manager = local.role_assignments_resource_manager
+  role_assignments_entra_id               = local.role_assignments_entra_id
 }
