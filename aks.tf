@@ -1,0 +1,26 @@
+module "aks_automatic" {
+  source  = "Azure/avm-res-containerservice-managedcluster/azurerm"
+  version = "0.2.5"
+
+  for_each = try(local.aks, {})
+
+  enable_telemetry = try(each.value.enable_telemetry, false)
+
+  default_node_pool = try(each.value.default_node_pool, {})
+
+  location            = module.resource_group[each.value.resource_group_key].resource.location
+  name                = "${each.value.name}-${module.aks_naming[each.key].kubernetes_cluster.name_unique}"
+  resource_group_name = module.resource_group[each.value.resource_group_key].name
+  tags = local.globals.tags.enabled ? merge(local.globals.tags.object, try(each.value.tags, {})) : try(each.value.tags, {})
+  azure_active_directory_role_based_access_control = try(each.value.azure_active_directory_role_based_access_control, {})
+
+  dns_prefix = each.value.dns_prefix
+
+  maintenance_window_auto_upgrade = try(each.value.maintenance_window_auto_upgrade, {})
+
+  managed_identities = try(each.value.managed_identities, {})
+
+  network_profile = try(each.value.network_profile, {})
+
+  node_pools = try(each.value.node_pools, {})
+}
