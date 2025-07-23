@@ -2,7 +2,10 @@ module "storage_accounts" {
   source  = "Azure/avm-res-storage-storageaccount/azurerm"
   version = "0.6.3"
 
-  for_each = try(local.storage_accounts, {})
+  for_each = {
+    for key, value in try(local.storage_accounts, {}) : key => value
+    if value.enabled == true
+  }
 
   location            = module.resource_group[each.value.resource_group_key].resource.location
   resource_group_name = module.resource_group[each.value.resource_group_key].name

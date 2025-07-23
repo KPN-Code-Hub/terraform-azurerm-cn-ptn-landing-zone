@@ -1,5 +1,9 @@
 module "resource_group" {
-  for_each         = local.resource_groups
+  for_each = {
+    for key, value in try(local.resource_groups, {}) : key => value
+    if value.enabled == true
+  }
+
   source           = "Azure/avm-res-resources-resourcegroup/azurerm"
   version          = "0.2.1"
   enable_telemetry = false

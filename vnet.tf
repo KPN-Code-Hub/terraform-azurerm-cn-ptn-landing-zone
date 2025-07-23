@@ -1,7 +1,7 @@
 data "azurerm_virtual_network" "vnet_read" {
   for_each = try({
     for key, value in local.vnet : key => value
-    if try(value.read, false) == true
+    if try(value.read, false) == true && try(value.enabled, true)
   }, {})
   name                = each.value.name
   resource_group_name = each.value.resource_group_name
@@ -13,7 +13,7 @@ module "vnet" {
 
   for_each = try({
     for key, value in local.vnet : key => value
-    if try(value.read, false) == false
+    if try(value.read, false) == false && try(value.enabled, true)
   }, {})
 
   address_space       = try(each.value.address_space, [])

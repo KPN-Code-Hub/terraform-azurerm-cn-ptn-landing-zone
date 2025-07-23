@@ -3,8 +3,11 @@ module "keyvault" {
   source  = "Azure/avm-res-keyvault-vault/azurerm"
   version = "0.10.0"
 
-  for_each = try(local.keyvaults, {})
-
+  for_each = {
+    for key, value in try(local.keyvaults, {}) : key => value
+    if value.enabled == true
+  }
+  
   name                           = "${each.value.name}-${module.keyvault_naming[each.key].key_vault.name_unique}"
   enable_telemetry               = try(each.value.enable_telemetry, false)
   location                       = module.resource_group[each.value.resource_group_key].resource.location

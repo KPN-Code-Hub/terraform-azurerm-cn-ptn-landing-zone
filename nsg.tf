@@ -2,7 +2,10 @@ module "nsg" {
   source  = "Azure/avm-res-network-networksecuritygroup/azurerm"
   version = "0.4.0"
 
-  for_each = try(local.nsg, {})
+  for_each = {
+    for key, value in try(local.nsg, {}) : key => value
+    if value.enabled == true
+  }
 
   resource_group_name = module.resource_group[each.value.resource_group_key].name
   name                = "${each.value.name}-${module.nsg_naming[each.key].network_security_group.name_unique}"

@@ -2,7 +2,10 @@ module "aks_automatic" {
   source  = "Azure/avm-res-containerservice-managedcluster/azurerm"
   version = "0.2.5"
 
-  for_each = try(local.aks, {})
+  for_each = {
+    for key, value in try(local.aks, {}) : key => value
+    if value.enabled == true
+  }
 
   enable_telemetry = try(each.value.enable_telemetry, false)
 
