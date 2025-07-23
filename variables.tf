@@ -1,15 +1,3 @@
-variable "tenant_id" {
-  description = "The ID of the Azure Active Directory tenant."
-  type        = string
-  default     = "0baeb517-c6ec-4d6c-a394-96a5affa5ada"
-}
-
-variable "subscription_id" {
-  description = "The ID of the Azure subscription."
-  type        = string
-  default     = "10852416-5fc2-40e3-a117-ae3bc1499f07"
-}
-
 variable "resource_groups" {
   description = "Map of resource groups to create. Each key is a resource group name, and value is its config."
 
