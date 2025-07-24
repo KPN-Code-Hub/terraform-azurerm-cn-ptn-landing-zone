@@ -9,9 +9,6 @@ terraform {
       source  = "hashicorp/random"
       version = "~> 3.5"
     }
-    azuread = {
-      source  = "hashicorp/azuread"
-    }
     azapi = {
       source = "Azure/azapi"
     }
@@ -23,12 +20,6 @@ provider "azapi" {
   tenant_id                 = "0baeb517-c6ec-4d6c-a394-96a5affa5ada"
   client_id                 = "ac734034-cf2e-464e-9952-e57fa223a9d6"
   use_aks_workload_identity = true
-}
-
-provider "azuread" {
-  tenant_id                 = "0baeb517-c6ec-4d6c-a394-96a5affa5ada"
-  client_id                 = "ac734034-cf2e-464e-9952-e57fa223a9d6"
-  use_oidc                  = true
 }
 
 data "azurerm_client_config" "current" {}
