@@ -9,7 +9,7 @@ data "azurerm_virtual_network" "vnet_read" {
 
 module "vnet" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm"
-  version = "0.9.2"
+  version = "0.9.3"
 
   for_each = try({
     for key, value in local.vnet : key => value
