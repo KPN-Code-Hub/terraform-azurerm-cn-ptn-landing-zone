@@ -29,7 +29,7 @@ provider "azuread" {
   tenant_id = "0baeb517-c6ec-4d6c-a394-96a5affa5ada"
   client_id = "ac734034-cf2e-464e-9952-e57fa223a9d6"
   use_oidc  = true
-  use_cli   = false
+  oidc_token_file_path = "/var/run/secrets/azure/tokens/azure-identity-token"
 }
 
 data "azurerm_client_config" "current" {}
