@@ -1,6 +1,6 @@
 module "role_assignments" {
   source  = "Azure/avm-res-authorization-roleassignment/azurerm"
-  version = "0.2.0"
+  version = "0.3.0"
 
   enable_telemetry = false
 
