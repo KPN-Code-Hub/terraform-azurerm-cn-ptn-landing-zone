@@ -317,6 +317,7 @@ variable "federated_identity_credentials" {
   description = "Map of federated identity credentials to create."
 
   type = map(object({
+    enabled                            = optional(bool, true)
     name                               = optional(string)
     issuer                             = optional(string)
     subject                            = optional(string)
