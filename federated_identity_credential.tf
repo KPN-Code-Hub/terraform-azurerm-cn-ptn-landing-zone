@@ -9,5 +9,5 @@ resource "azurerm_federated_identity_credential" "federated" {
   subject             = each.value.subject
   audience            = each.value.audience
   resource_group_name = try(module.resource_group[each.value.resource_group_key].name, each.value.resource_group_name)
-  parent_id           = try(module.user_managed_identity[each.value.user_assigned_managed_identity_key].id, each.value.identity_id)
+  parent_id           = try(module.user_managed_identity[each.value.user_assigned_managed_identity_key].resource_id, each.value.identity_id)
 }
