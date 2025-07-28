@@ -312,3 +312,20 @@ variable "aks" {
 
   default = {}
 }
+
+variable "federated_identity_credentials" {
+  description = "Map of federated identity credentials to create."
+
+  type = map(object({
+    name                               = optional(string)
+    issuer                             = optional(string)
+    subject                            = optional(string)
+    audience                           = optional(list(string), ["api://AzureADTokenExchange"])
+    resource_group_name                = optional(string, null)
+    resource_group_key                 = optional(string, null)
+    identity_id                        = optional(string, null)
+    user_assigned_managed_identity_key = optional(string, null)
+  }))
+
+  default = {}
+}

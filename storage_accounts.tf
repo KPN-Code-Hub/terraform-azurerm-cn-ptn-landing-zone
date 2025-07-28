@@ -8,7 +8,7 @@ module "storage_accounts" {
   }
 
   location            = module.resource_group[each.value.resource_group_key].resource.location
-  resource_group_name = module.resource_group[each.value.resource_group_key].name
+  resource_group_name = try(module.resource_group[each.value.resource_group_key].name, each.value.resource_group_name)
   name                = "${each.value.name}${module.storage_account_naming[each.key].storage_account.name_unique}"
 
   account_kind             = try(each.value.account_kind, "StorageV2")

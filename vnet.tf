@@ -18,7 +18,7 @@ module "vnet" {
 
   address_space       = try(each.value.address_space, [])
   location            = module.resource_group[each.value.resource_group_key].resource.location
-  resource_group_name = module.resource_group[each.value.resource_group_key].name
+  resource_group_name = try(module.resource_group[each.value.resource_group_key].name, each.value.resource_group_name)
   enable_telemetry    = try(each.value.enable_telemetry, false)
   name                = "${each.value.name}${module.vnet_naming[each.key].virtual_network.name_unique}"
   tags                = local.globals.tags.enabled ? merge(local.globals.tags.object, try(each.value.tags, {})) : try(each.value.tags, {})

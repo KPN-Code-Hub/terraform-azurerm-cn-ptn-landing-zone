@@ -11,7 +11,7 @@ module "keyvault" {
   name                           = "${each.value.name}-${module.keyvault_naming[each.key].key_vault.name_unique}"
   enable_telemetry               = try(each.value.enable_telemetry, false)
   location                       = module.resource_group[each.value.resource_group_key].resource.location
-  resource_group_name            = module.resource_group[each.value.resource_group_key].name
+  resource_group_name            = try(module.resource_group[each.value.resource_group_key].name, each.value.resource_group_name)
   tags                           = local.globals.tags.enabled ? merge(local.globals.tags.object, try(each.value.tags, {})) : try(each.value.tags, {})
   tenant_id                      = try(each.value.tenant_id, data.azurerm_client_config.current.tenant_id)
   public_network_access_enabled  = false
