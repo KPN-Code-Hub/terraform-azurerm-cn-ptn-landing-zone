@@ -158,8 +158,10 @@ variable "keyvaults" {
       create = optional(string)
     }))
     network_acls = optional(object({
-      bypass   = optional(string)
-      ip_rules = optional(list(string))
+      bypass                     = optional(string)
+      default_action             = optional(string, "Deny")
+      ip_rules                   = optional(list(string))
+      virtual_network_subnet_ids = optional(list(string))
     }))
   }))
 
@@ -237,10 +239,8 @@ variable "storage_accounts" {
     }))
 
     network_rules = optional(object({
-      bypass                     = optional(list(string))
-      default_action             = optional(string)
-      ip_rules                   = optional(list(string))
-      virtual_network_subnet_ids = optional(list(string))
+      bypass         = optional(list(string))
+      default_action = optional(string)
     }))
   }))
 
