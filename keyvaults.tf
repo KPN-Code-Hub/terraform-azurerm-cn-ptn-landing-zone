@@ -1,4 +1,3 @@
-
 module "keyvault" {
   source  = "Azure/avm-res-keyvault-vault/azurerm"
   version = "0.10.1"
@@ -27,7 +26,3 @@ module "keyvault" {
 
   network_acls = try(each.value.network_acls, null)
 }
-
-
-
-
