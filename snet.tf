@@ -1,6 +1,6 @@
 module "snet" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm//modules/subnet"
-  version = "0.9.2"
+  version = "0.10.0"
   
   for_each = {
     for key, value in try(local.snet, {}) : key => value
