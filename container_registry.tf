@@ -7,7 +7,7 @@ module "containerregistry" {
     if value.enabled == true
   }
 
-  name                = "${each.value.name}-${module.container_registry_naming[each.key].container_registry.name_unique}"
+  name                = "${each.value.name}${module.container_registry_naming[each.key].container_registry.name_unique}"
   resource_group_name = try(module.resource_group[each.value.resource_group_key].resource.name, each.value.resource_group_name, null)
   location            = try(module.resource_group[each.value.resource_group_key].resource.location, each.value.location, null)
 }
