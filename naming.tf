@@ -77,3 +77,13 @@ module "uami_naming" {
   }
   suffix = local.globals.suffix.enabled ? local.globals.suffix.list : each.value.suffix
 }
+
+module "container_registry_naming" {
+  source   = "Azure/naming/azurerm"
+  version  = ">= 0.4.0"
+  for_each = {
+    for key, value in local.container_registry : key => value
+    if try(value.enabled, true)
+  }
+  suffix = local.globals.suffix.enabled ? local.globals.suffix.list : each.value.suffix
+}

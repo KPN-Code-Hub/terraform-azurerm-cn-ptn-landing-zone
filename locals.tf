@@ -3,6 +3,7 @@ locals {
   vnet                              = var.vnet
   snet                              = var.snet
   storage_accounts                  = var.storage_accounts
+  container_registry                = var.container_registry
   aks                               = var.aks
   nsg                               = var.nsg
   keyvaults                         = var.keyvaults

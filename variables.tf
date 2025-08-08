@@ -332,3 +332,111 @@ variable "federated_identity_credentials" {
 
   default = {}
 }
+
+variable "container_registry" {
+  description = "Container registry"
+
+  type = map(object({
+    name                = string
+    resource_group_key  = optional(string)
+    resource_group_name = optional(string)
+    admin_enabled                = optional(bool, false)
+    anonymous_pull_enabled       = optional(bool, false)
+    customer_managed_key         = optional(object({
+      key_vault_resource_id = string
+      key_name              = string
+      key_version           = optional(string, null)
+      user_assigned_identity = optional(object({
+        resource_id = string
+      }), null)
+    }), null)
+    data_endpoint_enabled        = optional(bool, false)
+    diagnostic_settings          = optional(map(object({
+      name                                 = optional(string, null)
+      log_categories                       = optional(set(string), [])
+      log_groups                           = optional(set(string), ["allLogs"])
+      metric_categories                    = optional(set(string), ["AllMetrics"])
+      log_analytics_destination_type       = optional(string, "Dedicated")
+      workspace_resource_id                = optional(string, null)
+      storage_account_resource_id          = optional(string, null)
+      event_hub_authorization_rule_resource_id = optional(string, null)
+      event_hub_name                       = optional(string, null)
+      marketplace_partner_resource_id       = optional(string, null)
+    })), {})
+    enable_telemetry             = optional(bool, true)
+    enable_trust_policy          = optional(bool, false)
+    export_policy_enabled        = optional(bool, true)
+    georeplications              = optional(list(object({
+      location                  = string
+      regional_endpoint_enabled = optional(bool, true)
+      zone_redundancy_enabled   = optional(bool, true)
+      tags                      = optional(map(any), null)
+    })), [])
+    lock = optional(object({
+      kind = string
+      name = optional(string, null)
+    }), null)
+    managed_identities = optional(object({
+      system_assigned           = optional(bool, false)
+      user_assigned_resource_ids = optional(set(string), [])
+    }), {})
+    network_rule_bypass_option    = optional(string, "None")
+    network_rule_set = optional(object({
+      default_action = optional(string, "Deny")
+      ip_rule = optional(list(object({
+        action   = optional(string, "Allow")
+        ip_range = string
+      })), [])
+    }), null)
+    private_endpoints = optional(map(object({
+      name = optional(string, null)
+      role_assignments = optional(map(object({
+        role_definition_id_or_name = string
+        principal_id               = string
+        description                = optional(string, null)
+        skip_service_principal_aad_check = optional(bool, false)
+        condition                  = optional(string, null)
+        condition_version          = optional(string, null)
+        delegated_managed_identity_resource_id = optional(string, null)
+        principal_type             = optional(string, null)
+      })), {})
+      lock = optional(object({
+        kind = string
+        name = optional(string, null)
+      }), null)
+      tags = optional(map(string), null)
+      subnet_resource_id = string
+      private_dns_zone_group_name = optional(string, "default")
+      private_dns_zone_resource_ids = optional(set(string), [])
+      application_security_group_associations = optional(map(string), {})
+      private_service_connection_name = optional(string, null)
+      network_interface_name = optional(string, null)
+      location = optional(string, null)
+      resource_group_name = optional(string, null)
+      ip_configurations = optional(map(object({
+        name = string
+        private_ip_address = string
+      })), {})
+    })), {})
+    private_endpoints_manage_dns_zone_group = optional(bool, true)
+    public_network_access_enabled = optional(bool, true)
+    quarantine_policy_enabled     = optional(bool, false)
+    retention_policy_in_days      = optional(number, 7)
+    role_assignments = optional(map(object({
+      role_definition_id_or_name = string
+      principal_id               = string
+      description                = optional(string, null)
+      skip_service_principal_aad_check = optional(bool, false)
+      condition                  = optional(string, null)
+      condition_version          = optional(string, null)
+      delegated_managed_identity_resource_id = optional(string, null)
+      principal_type             = optional(string, null)
+    })), {})
+    sku                 = optional(string, "Premium")
+    tags                = optional(map(string), null)
+    zone_redundancy_enabled = optional(bool, true)
+    enabled             = optional(bool, true)
+  }))
+
+  default = {}
+}
