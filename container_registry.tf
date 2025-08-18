@@ -31,7 +31,7 @@ module "containerregistry" {
   retention_policy_in_days                = each.value.retention_policy_in_days
   role_assignments                        = each.value.role_assignments
   sku                                     = each.value.sku
-  tags                                    = each.value.tags
+  tags                                    = local.globals.tags.enabled ? merge(local.globals.tags.object, try(each.value.tags, {})) : try(each.value.tags, {})
   zone_redundancy_enabled                 = each.value.zone_redundancy_enabled
 }
 
