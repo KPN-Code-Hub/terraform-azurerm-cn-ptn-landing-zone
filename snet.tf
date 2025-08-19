@@ -11,5 +11,6 @@ module "snet" {
   virtual_network = {
     resource_id = try(local.combined_vnet[each.value.vnet_key].resource_id, local.combined_vnet[each.value.vnet_key].id)
   }
+  route_table = try(each.value.route_table, null)
   address_prefixes = try(each.value.address_prefixes, [])
 }
