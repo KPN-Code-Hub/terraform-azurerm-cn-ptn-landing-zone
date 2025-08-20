@@ -1,7 +1,7 @@
 module "snet" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm//modules/subnet"
-  version = "0.9.2"
-  
+  version = "0.10.0"
+
   for_each = {
     for key, value in try(local.snet, {}) : key => value
     if value.enabled == true
@@ -11,6 +11,8 @@ module "snet" {
   virtual_network = {
     resource_id = try(local.combined_vnet[each.value.vnet_key].resource_id, local.combined_vnet[each.value.vnet_key].id)
   }
-  route_table = try(each.value.route_table, null)
+  route_table      = try(each.value.route_table, null)
   address_prefixes = try(each.value.address_prefixes, [])
+  delegation       = try(each.value.delegation, null)
+  delegations      = try(each.value.delegations, null)
 }
