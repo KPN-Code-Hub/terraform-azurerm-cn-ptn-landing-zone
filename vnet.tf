@@ -23,17 +23,17 @@ module "vnet" {
   name                = "${each.value.name}${module.vnet_naming[each.key].virtual_network.name_unique}"
   tags                = local.globals.tags.enabled ? merge(local.globals.tags.object, try(each.value.tags, {})) : try(each.value.tags, {})
 
-  ddos_protection_plan = try(each.value.ddos_protection_plan, {})
+  ddos_protection_plan = try(each.value.ddos_protection_plan, null)
 
   diagnostic_settings = try(each.value.diagnostic_settings, {})
 
   dns_servers = {
-    dns_servers = try(each.value.dns_servers, [])
+    dns_servers = try(each.value.dns_servers.dns_servers, [])
   }
 
   enable_vm_protection = try(each.value.enable_vm_protection, false)
 
-  encryption              = try(each.value.encryption, {})
+  encryption              = try(each.value.encryption, null)
   flow_timeout_in_minutes = try(each.value.flow_timeout_in_minutes, 30)
 
   role_assignments = try(each.value.role_assignments, {})
