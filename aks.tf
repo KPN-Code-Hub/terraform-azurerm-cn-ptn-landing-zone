@@ -12,7 +12,7 @@ module "aks_automatic" {
   default_node_pool = try(each.value.default_node_pool, {})
 
   location                  = module.resource_group[each.value.resource_group_key].resource.location
-  name                      = "${each.value.name}-${module.aks_naming[each.key].kubernetes_cluster.name_unique}"
+  name                      = try(each.value.static_name, "${each.value.name}-${module.aks_naming[each.key].kubernetes_cluster.name_unique}")
   resource_group_name       = try(module.resource_group[each.value.resource_group_key].name, each.value.resource_group_name)
   tags                      = local.globals.tags.enabled ? merge(local.globals.tags.object, try(each.value.tags, {})) : try(each.value.tags, {})
   workload_identity_enabled = try(each.value.workload_identity_enabled, false)

@@ -7,7 +7,7 @@ module "snet" {
     if value.enabled == true
   }
 
-  name = "${each.value.name}${module.snet_naming[each.key].subnet.name_unique}"
+  name = try( each.value.static_name, "${each.value.name}${module.snet_naming[each.key].subnet.name_unique}")
   virtual_network = {
     resource_id = try(local.combined_vnet[each.value.vnet_key].resource_id, local.combined_vnet[each.value.vnet_key].id)
   }
