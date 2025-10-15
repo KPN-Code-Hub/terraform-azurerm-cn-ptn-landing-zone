@@ -1,6 +1,6 @@
 module "keyvault" {
   source  = "Azure/avm-res-keyvault-vault/azurerm"
-  version = "0.10.1"
+  version = "0.10.2"
 
   for_each = {
     for key, value in try(local.keyvaults, {}) : key => value
