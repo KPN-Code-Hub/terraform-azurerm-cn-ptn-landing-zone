@@ -1,6 +1,6 @@
 module "aks_automatic" {
   source  = "Azure/avm-res-containerservice-managedcluster/azurerm"
-  version = "0.2.5"
+  version = "0.3.3"
 
   for_each = {
     for key, value in try(local.aks, {}) : key => value
