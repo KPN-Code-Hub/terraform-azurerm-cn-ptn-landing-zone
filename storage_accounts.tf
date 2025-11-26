@@ -1,6 +1,6 @@
 module "storage_accounts" {
   source  = "Azure/avm-res-storage-storageaccount/azurerm"
-  version = "0.6.3"
+  version = "0.6.7"
 
   for_each = {
     for key, value in try(local.storage_accounts, {}) : key => value
