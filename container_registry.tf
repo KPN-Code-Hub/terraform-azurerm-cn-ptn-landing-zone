@@ -12,6 +12,7 @@ module "containerregistry" {
   location            = try(module.resource_group[each.value.resource_group_key].resource.location, each.value.location, null)
 
   admin_enabled                           = try(each.value.admin_enabled, true)
+  zone_redundancy_enabled                 = try(each.value.zone_redundancy_enabled, false)
   anonymous_pull_enabled                  = try(each.value.anonymous_pull_enabled, false)
   customer_managed_key                    = try(each.value.customer_managed_key, null)
   data_endpoint_enabled                   = try(each.value.data_endpoint_enabled, false)
@@ -33,4 +34,3 @@ module "containerregistry" {
   sku                                     = try(each.value.sku, "Premium")
   tags                                    = try(local.globals.tags.enabled ? merge(local.globals.tags.object, try(each.value.tags, {})) : try(each.value.tags, {}))
 }
-
