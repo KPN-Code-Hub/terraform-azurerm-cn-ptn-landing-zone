@@ -1,6 +1,6 @@
 module "nsg" {
   source  = "Azure/avm-res-network-networksecuritygroup/azurerm"
-  version = "0.4.0"
+  version = "0.5.1"
 
   for_each = {
     for key, value in try(local.nsg, {}) : key => value
