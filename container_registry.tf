@@ -1,7 +1,7 @@
 # This is the module call
 module "containerregistry" {
   source  = "Azure/avm-res-containerregistry-registry/azurerm"
-  version = "0.4.0"
+  version = "0.5.1"
   for_each = {
     for key, value in try(local.container_registry, {}) : key => value
     if value.enabled == true
